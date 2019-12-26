@@ -3,7 +3,7 @@
 #   This file is where we make project specific configurations.
 ################################################################################
 
-PROJECT_EMSCRIPTEN_TEMPLATE = template.html
+PROJECT_EMSCRIPTEN_TEMPLATE = index.html
 
 ################################################################################
 # OF ROOT
