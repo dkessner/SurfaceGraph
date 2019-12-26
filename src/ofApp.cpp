@@ -159,9 +159,11 @@ void ofApp::keyPressed(int key)
     float d = 5;
 
     switch(key) {
+      case 'a':
       case OF_KEY_LEFT:
           cameraVelocity.x = -d;
           break;
+      case 'd':
       case OF_KEY_RIGHT:
           cameraVelocity.x = d;
           break;
@@ -209,7 +211,9 @@ void ofApp::keyReleased(int key)
 {
     switch(key) 
     {
+      case 'a':
       case OF_KEY_LEFT:
+      case 'd':
       case OF_KEY_RIGHT:
           cameraVelocity.x = 0;
           break;

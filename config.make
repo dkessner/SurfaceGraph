@@ -3,6 +3,8 @@
 #   This file is where we make project specific configurations.
 ################################################################################
 
+PROJECT_EMSCRIPTEN_TEMPLATE = template.html
+
 ################################################################################
 # OF ROOT
 #   The location of your root openFrameworks installation
