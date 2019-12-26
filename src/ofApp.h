@@ -7,6 +7,9 @@
 #include "ofMain.h"
 
 
+using namespace glm; // vec3
+
+
 class ofApp : public ofBaseApp 
 {
 	public:
@@ -30,7 +33,11 @@ class ofApp : public ofBaseApp
         private:
 
         bool helpVisible;
-        ofEasyCam cam;
+
+        //ofEasyCam cam;
+
+        ofCamera camera;
+        vec3 cameraVelocity;
 
         void drawInteractionArea();
 

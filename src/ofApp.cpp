@@ -15,22 +15,28 @@ void ofApp::setup()
 
     helpVisible = false;
 
-    cam.setRelativeYAxis(true);
+    camera.setPosition(100, 50, 400);
+
+    //cam.setRelativeYAxis(true);
 }
 
 
 void ofApp::update()
-{}
+{
+
+    camera.move(cameraVelocity);    
+
+}
 
 
 void ofApp::draw()
 {
     ofBackground(20);
 
-    cam.begin();
-    rotateAxes();
+    camera.begin();
+    //rotateAxes();
     drawScene();
-    cam.end();
+    camera.end();
 
     drawHelp();
 }
@@ -87,10 +93,11 @@ void ofApp::drawHelp()
 
     stringstream ss;
     ss << "FPS: " << ofToString(ofGetFrameRate(),0) <<endl<<endl;
-    ss << "MODE: " << (cam.getOrtho()?"ORTHO":"PERSPECTIVE")<<endl;
-    ss << "MOUSE INPUT ENABLED: " << (cam.getMouseInputEnabled()?"TRUE":"FALSE")<<endl;
-    ss << "INERTIA ENABLED: " << (cam.getInertiaEnabled()?"TRUE":"FALSE")<<endl;
-    ss << "ROTATION RELATIVE Y AXIS: " << (cam.getRelativeYAxis()?"TRUE":"FALSE")<<endl;
+//    ss << "MODE: " << (cam.getOrtho()?"ORTHO":"PERSPECTIVE")<<endl;
+//    ss << "MOUSE INPUT ENABLED: " << (cam.getMouseInputEnabled()?"TRUE":"FALSE")<<endl;
+//    ss << "INERTIA ENABLED: " << (cam.getInertiaEnabled()?"TRUE":"FALSE")<<endl;
+//    ss << "ROTATION RELATIVE Y AXIS: " << (cam.getRelativeYAxis()?"TRUE":"FALSE")<<endl;
+    ss << "Camera position: " << camera.getPosition() << endl;
     ss << endl;
     ss << "Toogle camera projection mode (ORTHO or PERSPECTIVE):"<< endl;
     ss << "    press space bar."<< endl;
@@ -117,9 +124,11 @@ void ofApp::drawHelp()
     ss << "move over z axis / dolly / zoom in or out:"<<endl;
     ss << "    RIGHT MOUSE BUTTON DRAG"<<endl;
     ss << "    VERTICAL SCROLL"<<endl<<endl;
+    /*
     if (cam.getOrtho()) {
         ss << "    Notice that in ortho mode zoom will be centered at the mouse position." << endl;
     }
+    */
 
     ofDrawBitmapString(ss.str().c_str(), 20, 20);
 }
@@ -147,13 +156,34 @@ void ofApp::drawInteractionArea()
 
 void ofApp::keyPressed(int key)
 {
+    float d = 5;
+
     switch(key) {
+      case OF_KEY_LEFT:
+          cameraVelocity.x = -d;
+          break;
+      case OF_KEY_RIGHT:
+          cameraVelocity.x = d;
+          break;
+      case OF_KEY_UP:
+          cameraVelocity.y = d;
+          break;
+      case OF_KEY_DOWN:
+          cameraVelocity.y = -d;
+          break;
+      case 'w':
+          cameraVelocity.z = -d;
+          break;
+      case 's':
+          cameraVelocity.z = d;
+          break;
+
       case ' ':
-    	    cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+    	    //cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
             break;
 	    case 'C':
 	    case 'c':
-            cam.getMouseInputEnabled() ? cam.disableMouseInput() : cam.enableMouseInput();
+            //cam.getMouseInputEnabled() ? cam.disableMouseInput() : cam.enableMouseInput();
             break;
 		case 'F':
 		case 'f':
@@ -165,17 +195,36 @@ void ofApp::keyPressed(int key)
 			break;
         case 'I':
         case 'i':
-		    cam.getInertiaEnabled() ? cam.disableInertia() : cam.enableInertia();
+		    //cam.getInertiaEnabled() ? cam.disableInertia() : cam.enableInertia();
             break;
         case 'Y':
         case 'y':
-            cam.setRelativeYAxis(!cam.getRelativeYAxis());
+            //cam.setRelativeYAxis(!cam.getRelativeYAxis());
             break;
 	}
 }
 
 
-void ofApp::keyReleased(int key){}
+void ofApp::keyReleased(int key)
+{
+    switch(key) 
+    {
+      case OF_KEY_LEFT:
+      case OF_KEY_RIGHT:
+          cameraVelocity.x = 0;
+          break;
+      case OF_KEY_UP:
+      case OF_KEY_DOWN:
+          cameraVelocity.y = 0;
+          break;
+      case 'w':
+      case 's':
+          cameraVelocity.z = 0;
+          break;
+    }
+}
+
+
 void ofApp::mouseMoved(int x, int y ){}
 void ofApp::mouseDragged(int x, int y, int button){}
 void ofApp::mousePressed(int x, int y, int button){}
