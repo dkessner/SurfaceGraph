@@ -19,12 +19,8 @@ void ofApp::setup()
 {
     ofSetVerticalSync(true);
 
-    helpVisible = true;
     keyPressedText = keyPressedTextDefault;
-
     camera.setPosition(100, 50, 600);
-
-    //cam.setRelativeYAxis(true);
 }
 
 
@@ -43,7 +39,7 @@ void ofApp::draw()
     drawScene();
     camera.end();
 
-    drawHelp();
+    drawUsage();
 }
 
 
@@ -63,6 +59,8 @@ void ofApp::rotateAxes()
 
 void ofApp::drawScene()
 {
+    // from examples/3d/easyCamExample
+
     ofSetConeResolution(20, 2);
     ofSetCylinderResolution(20, 2);
     ofEnableDepthTest();
@@ -89,10 +87,8 @@ void ofApp::drawScene()
 }
 
 
-void ofApp::drawHelp()
+void ofApp::drawUsage()
 {
-    if (!helpVisible) return;
-
     stringstream ss;
     ss << "FPS: " << ofToString(ofGetFrameRate(),0) << endl << endl;
     ss << "Camera movement:\n";
@@ -102,26 +98,6 @@ void ofApp::drawHelp()
     ofSetColor(255);
     ofDrawBitmapString(ss.str().c_str(), 20, 20);
     ofDrawBitmapString(keyPressedText.c_str(), ofGetWindowWidth()/2, 20);
-}
-
-
-void ofApp::drawInteractionArea()
-{
-    ofSetCircleResolution(64);
-
-    ofRectangle vp = ofGetCurrentViewport();
-    float r = std::min<float>(vp.width, vp.height) * 0.5f;
-    float x = vp.width * 0.5f;
-    float y = vp.height * 0.5f;
-
-    ofPushStyle();
-    ofSetLineWidth(3);
-    ofSetColor(255, 255, 0);
-    ofNoFill();
-    glDepthMask(false);
-    ofDrawCircle(x, y, r);
-    glDepthMask(true);
-    ofPopStyle();
 }
 
 
@@ -138,52 +114,29 @@ void ofApp::keyPressed(ofKeyEventArgs& key)
 
     float d = 5;
 
-    switch(key.key) {
-      case 'a':
-      case OF_KEY_LEFT:
-          cameraVelocity.x = -d;
-          break;
-      case 'd':
-      case OF_KEY_RIGHT:
-          cameraVelocity.x = d;
-          break;
-      case OF_KEY_UP:
-          cameraVelocity.y = d;
-          break;
-      case OF_KEY_DOWN:
-          cameraVelocity.y = -d;
-          break;
-      case 'w':
-          cameraVelocity.z = -d;
-          break;
-      case 's':
-          cameraVelocity.z = d;
-          break;
-
-      case ' ':
-    	    //cam.getOrtho() ? cam.disableOrtho() : cam.enableOrtho();
+    switch(key.key) 
+    {
+        case 'a':
+        case OF_KEY_LEFT:
+            cameraVelocity.x = -d;
             break;
-	    case 'C':
-	    case 'c':
-            //cam.getMouseInputEnabled() ? cam.disableMouseInput() : cam.enableMouseInput();
+        case 'd':
+        case OF_KEY_RIGHT:
+            cameraVelocity.x = d;
             break;
-		case 'F':
-		case 'f':
-			ofToggleFullscreen();
-			break;
-		case 'H':
-		case 'h':
-			helpVisible = !helpVisible;
-			break;
-        case 'I':
-        case 'i':
-		    //cam.getInertiaEnabled() ? cam.disableInertia() : cam.enableInertia();
+        case OF_KEY_UP:
+            cameraVelocity.y = d;
             break;
-        case 'Y':
-        case 'y':
-            //cam.setRelativeYAxis(!cam.getRelativeYAxis());
+        case OF_KEY_DOWN:
+            cameraVelocity.y = -d;
             break;
-	}
+        case 'w':
+            cameraVelocity.z = -d;
+            break;
+        case 's':
+            cameraVelocity.z = d;
+            break;
+    }
 }
 
 
@@ -193,20 +146,20 @@ void ofApp::keyReleased(int key)
 
     switch(key) 
     {
-      case 'a':
-      case OF_KEY_LEFT:
-      case 'd':
-      case OF_KEY_RIGHT:
-          cameraVelocity.x = 0;
-          break;
-      case OF_KEY_UP:
-      case OF_KEY_DOWN:
-          cameraVelocity.y = 0;
-          break;
-      case 'w':
-      case 's':
-          cameraVelocity.z = 0;
-          break;
+        case 'a':
+        case OF_KEY_LEFT:
+        case 'd':
+        case OF_KEY_RIGHT:
+            cameraVelocity.x = 0;
+            break;
+        case OF_KEY_UP:
+        case OF_KEY_DOWN:
+            cameraVelocity.y = 0;
+            break;
+        case 'w':
+        case 's':
+            cameraVelocity.z = 0;
+            break;
     }
 }
 
@@ -220,4 +173,5 @@ void ofApp::mouseExited(int x, int y){}
 void ofApp::windowResized(int w, int h){}
 void ofApp::gotMessage(ofMessage msg){}
 void ofApp::dragEvent(ofDragInfo dragInfo){}
+
 

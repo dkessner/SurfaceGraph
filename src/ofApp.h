@@ -9,6 +9,7 @@
 
 using namespace glm; // vec3
 
+
 class ofApp : public ofBaseApp 
 {
 	public:
@@ -32,19 +33,13 @@ class ofApp : public ofBaseApp
 
         private:
 
-        bool helpVisible;
-        string keyPressedText;
-
-        //ofEasyCam cam;
-
         ofCamera camera;
         vec3 cameraVelocity;
-
-        void drawInteractionArea();
 
         void rotateAxes();
         void drawScene();
 
-        void drawHelp();
+        void drawUsage();
+        string keyPressedText;
 };
 

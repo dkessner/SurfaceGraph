@@ -213,18 +213,18 @@
       };
 
 
-        function keyPress() {
-            console.log("[index.html] keyPress(): " + event.key + " " + event.keyCode);
+        function handle_keydown() {
+            console.log("[index.html] handle_keydown(): " + event.key + " " + event.keyCode);
             event.preventDefault();
         }
 
-        function keyRelease() {
-            console.log("[index.html] keyRelease(): " + event.key + " " + event.keyCode);
+        function handle_keyup() {
+            console.log("[index.html] handle_keyup(): " + event.key + " " + event.keyCode);
             event.preventDefault();
         }
 
-        document.addEventListener('keydown', keyPress);
-        document.addEventListener('keyup', keyRelease);
+        document.addEventListener('keydown', handle_keydown);
+        document.addEventListener('keyup', handle_keyup);
 
     </script>
     {{{ SCRIPT }}}

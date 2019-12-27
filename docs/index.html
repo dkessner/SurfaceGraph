@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>testing - dk was here</title>
+    <title>Surface Graph</title>
     <style>
       body {
         font-family: helvetica, sans-serif;
@@ -213,18 +213,18 @@
       };
 
 
-        function keyPress() {
-            console.log("[index.html] keyPress(): " + event.key + " " + event.keyCode);
+        function handle_keydown() {
+            console.log("[index.html] handle_keydown(): " + event.key + " " + event.keyCode);
             event.preventDefault();
         }
 
-        function keyRelease() {
-            console.log("[index.html] keyRelease(): " + event.key + " " + event.keyCode);
+        function handle_keyup() {
+            console.log("[index.html] handle_keyup(): " + event.key + " " + event.keyCode);
             event.preventDefault();
         }
 
-        document.addEventListener('keydown', keyPress);
-        document.addEventListener('keyup', keyRelease);
+        document.addEventListener('keydown', handle_keydown);
+        document.addEventListener('keyup', handle_keyup);
 
     </script>
     <script async type="text/javascript" src="SurfaceGraph.js"></script>
