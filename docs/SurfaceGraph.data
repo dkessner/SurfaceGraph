@@ -1,0 +1,7 @@
+addons.make
+bin
+config.make
+Makefile
+obj
+setenv
+src
