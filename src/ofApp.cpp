@@ -131,6 +131,7 @@ void ofApp::drawHelp()
     */
 
     ofDrawBitmapString(ss.str().c_str(), 20, 20);
+    ofDrawBitmapString(keyPressedText.c_str(), 20, ofGetWindowHeight()-50);
 }
 
 
@@ -153,12 +154,20 @@ void ofApp::drawInteractionArea()
     ofPopStyle();
 }
 
-
-void ofApp::keyPressed(int key)
+//void ofApp::keyPressed(int key)
+void ofApp::keyPressed(ofKeyEventArgs& key)
 {
+    ostringstream oss;
+    oss << "keyPressed():\tkey\tkeycode codepoint modifiers scancode\n" 
+            << "\t\t" << key.key << "\t" << key.keycode << 
+        "\t" << key.codepoint << "\t\t" << key.modifiers << "\t" << key.scancode << endl;
+    keyPressedText = oss.str();
+
+    cout << keyPressedText << flush;
+
     float d = 5;
 
-    switch(key) {
+    switch(key.key) {
       case 'a':
       case OF_KEY_LEFT:
           cameraVelocity.x = -d;
@@ -193,7 +202,7 @@ void ofApp::keyPressed(int key)
 			break;
 		case 'H':
 		case 'h':
-			helpVisible ^= true;
+			helpVisible = !helpVisible;
 			break;
         case 'I':
         case 'i':
@@ -209,6 +218,8 @@ void ofApp::keyPressed(int key)
 
 void ofApp::keyReleased(int key)
 {
+    keyPressedText = "";
+
     switch(key) 
     {
       case 'a':

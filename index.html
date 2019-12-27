@@ -211,6 +211,21 @@
           if (text) Module.printErr('[post-exception status] ' + text);
         };
       };
+
+
+        function keyPress() {
+            console.log("[index.html] keyPress(): " + event.key + " " + event.keyCode);
+            event.preventDefault();
+        }
+
+        function keyRelease() {
+            console.log("[index.html] keyRelease(): " + event.key + " " + event.keyCode);
+            event.preventDefault();
+        }
+
+        document.addEventListener('keydown', keyPress);
+        document.addEventListener('keyup', keyRelease);
+
     </script>
     {{{ SCRIPT }}}
   </body>

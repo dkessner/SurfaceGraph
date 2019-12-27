@@ -9,7 +9,6 @@
 
 using namespace glm; // vec3
 
-
 class ofApp : public ofBaseApp 
 {
 	public:
@@ -18,7 +17,8 @@ class ofApp : public ofBaseApp
         void update();
         void draw();
         
-        void keyPressed(int key);
+        //void keyPressed(int key);
+        void keyPressed(ofKeyEventArgs& key);
         void keyReleased(int key);
         void mouseMoved(int x, int y );
         void mouseDragged(int x, int y, int button);
@@ -33,6 +33,7 @@ class ofApp : public ofBaseApp
         private:
 
         bool helpVisible;
+        string keyPressedText;
 
         //ofEasyCam cam;
 
