@@ -35,8 +35,8 @@ void ofApp::createSurface()
     {
         ofPath path;
         path.clear();
-        path.setStrokeColor(ofColor(0, 255, 0, 50));
-        path.setStrokeWidth(2);
+        path.setStrokeColor(ofColor(0, 255, 0));
+        path.setStrokeWidth(.5);
         path.setFilled(false);
         for (float y=-size; y<size; y+=step)
         {
@@ -51,8 +51,8 @@ void ofApp::createSurface()
     {
         ofPath path;
         path.clear();
-        path.setStrokeColor(ofColor(0, 255, 0, 50));
-        path.setStrokeWidth(2);
+        path.setStrokeColor(ofColor(0, 255, 0));
+        path.setStrokeWidth(.5);
         path.setFilled(false);
         for (float x=-size; x<size; x+=step)
         {
