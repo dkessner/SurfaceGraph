@@ -9,10 +9,20 @@
 using namespace glm; // vec3
 
 
+//
+// TODO: use ofDrawArrow for vectors
+// TODO: try ofDrawRotationAxes for moving along parametric curves
+//
+
+
 void ofApp::setup()
 {
     ofSetVerticalSync(true);
+
+    camera.setDistance(20);
+    camera.setRelativeYAxis(true);
 }
+
 
 
 void ofApp::update()
@@ -24,11 +34,11 @@ void ofApp::draw()
     ofBackground(20);
 
     camera.begin();
-    //rotateAxes();
+    rotateAxes();
     drawScene();
     camera.end();
 
-    drawUsage();
+    if (showUsage) drawUsage();
 }
 
 
@@ -46,33 +56,30 @@ void ofApp::rotateAxes()
 }
 
 
+void ofApp::drawCoordinateSystem()
+{
+    const float stepSize = 1;
+    const size_t stepCount = 10;
+    const bool labels = true;
+    const bool showYZ = false;
+    const bool showXZ = false;
+    const bool showXY = true;
+
+    ofDrawGrid(stepSize, stepCount, labels, showYZ, showXZ, showXY);
+    ofDrawAxis(stepSize*stepCount);
+}
+
+
 void ofApp::drawScene()
 {
-    // from examples/3d/easyCamExample
-
-    ofSetConeResolution(20, 2);
-    ofSetCylinderResolution(20, 2);
+    drawCoordinateSystem();
     ofEnableDepthTest();
-    ofSetColor(ofColor::orange);//RIGHT
-    ofDrawCone(100, 0, 0, 50, 100);
     
-    ofSetColor(ofColor::white);//LEFT
-    ofDrawSphere(-100, 0, 0, 50);
-    
-    ofSetColor(ofColor::blue);//BOTTOM
-    ofDrawBox(0, 100, 0, 100);
-    
-    ofSetColor(ofColor::cyan);//TOP
-    ofDrawCylinder(0, -100, 0, 50, 100);
-    
-    ofSetColor(ofColor::yellow);//FRONT
-    ofDrawBox(0, 0, 100, 100);
-    
-    ofSetColor(ofColor::magenta);//BACK
-    ofDrawBox(0, 0, -100, 100);
-    
-    ofDrawGrid(20,10,true,true,true,true);
+    //ofSetColor(ofColor::white);//LEFT
+    ofDrawIcoSphere(5, 0, 0, 2);
+   
     ofDisableDepthTest();
+
 }
 
 
@@ -132,6 +139,9 @@ void ofApp::keyPressed(int key)
         case 'f':
             ofToggleFullscreen();
             break;
+        case 'H':
+        case 'h':
+            showUsage = !showUsage;
         case 'I':
         case 'i':
             camera.getInertiaEnabled() ? camera.disableInertia() : camera.enableInertia();

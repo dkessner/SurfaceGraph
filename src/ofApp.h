@@ -32,13 +32,13 @@ class ofApp : public ofBaseApp
 
         private:
 
-        //ofCamera camera;
         ofEasyCam camera;
-        vec3 cameraVelocity;
 
         void rotateAxes();
         void drawScene();
+        void drawCoordinateSystem();
 
+        bool showUsage = false;
         void drawUsage();
 };
 
