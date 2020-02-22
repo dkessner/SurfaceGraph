@@ -15,14 +15,65 @@ using namespace glm; // vec3
 //
 
 
+namespace {
+float f(float x, float y)
+{
+    return x*x - y*y;
+}
+}//namespace
+
+void ofApp::createSurface()
+{
+    const float size = 5;
+    const float step = .5;
+
+    //vector<ofPath> surface; 
+
+    // lines f(c,y)
+
+    for (float x=-size; x<=size; x+=step)
+    {
+        ofPath path;
+        path.clear();
+        path.setStrokeColor(ofColor(0, 255, 0, 50));
+        path.setStrokeWidth(2);
+        path.setFilled(false);
+        for (float y=-size; y<size; y+=step)
+        {
+            path.lineTo(x, y, f(x,y));
+        }
+        surface.push_back(path);
+    }
+
+    // lines f(x, c)
+
+    for (float y=-size; y<=size; y+=step)
+    {
+        ofPath path;
+        path.clear();
+        path.setStrokeColor(ofColor(0, 255, 0, 50));
+        path.setStrokeWidth(2);
+        path.setFilled(false);
+        for (float x=-size; x<size; x+=step)
+        {
+            path.lineTo(x, y, f(x,y));
+        }
+        surface.push_back(path);
+    }
+
+    //return surface; // TODO: check on move semantics
+}
+
+
 void ofApp::setup()
 {
     ofSetVerticalSync(true);
 
     camera.setDistance(20);
     camera.setRelativeYAxis(true);
-}
 
+    createSurface();
+}
 
 
 void ofApp::update()
@@ -75,11 +126,10 @@ void ofApp::drawScene()
     drawCoordinateSystem();
     ofEnableDepthTest();
     
-    //ofSetColor(ofColor::white);//LEFT
-    ofDrawIcoSphere(5, 0, 0, 2);
-   
-    ofDisableDepthTest();
+    for (auto line : surface)
+        line.draw();
 
+    ofDisableDepthTest();
 }
 
 

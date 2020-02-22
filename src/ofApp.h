@@ -40,5 +40,8 @@ class ofApp : public ofBaseApp
 
         bool showUsage = false;
         void drawUsage();
+
+        vector<ofPath> surface;
+        void createSurface();
 };
 
