@@ -18,21 +18,20 @@ using namespace glm; // vec3
 namespace {
 float f(float x, float y)
 {
-    return x*x - y*y;
+    return x*x + y*y;
 }
 
 float f2(float x, float y)
 {
-    return x*x + y*y;
+    return x*x - y*y;
 }
 }//namespace
+
 
 void ofApp::createSurface()
 {
     const float size = 5;
     const float step = .5;
-
-    //vector<ofPath> surface; 
 
     // lines f(c,y)
 
@@ -40,11 +39,9 @@ void ofApp::createSurface()
     {
         ofPath path;
         path.clear();
-        path.setStrokeColor(ofColor(0, 255, 0));
+        path.setStrokeColor(ofColor(0, 0, 255));
         path.setStrokeWidth(.5);
         path.setFilled(false);
-
-        path.setMode(ofPath::POLYLINES); // TODO: testing on OSX
 
         for (float y=-size; y<size; y+=step)
         {
@@ -59,11 +56,9 @@ void ofApp::createSurface()
     {
         ofPath path;
         path.clear();
-        path.setStrokeColor(ofColor(0, 255, 0));
+        path.setStrokeColor(ofColor(0, 0, 255));
         path.setStrokeWidth(.5);
         path.setFilled(false);
-
-        path.setMode(ofPath::POLYLINES); // TODO: testing on OSX
 
         for (float x=-size; x<size; x+=step)
         {
@@ -71,8 +66,6 @@ void ofApp::createSurface()
         }
         surface.push_back(path);
     }
-
-    //return surface; // TODO: check on move semantics
 }
 
 
@@ -82,20 +75,28 @@ void ofApp::createSurface2()
     const float step = .5;
 
     for (float x=-size; x<=size; x+=step)
-    for (float y=-size; y<size; y+=step)
     {
-        surface2.addVertex(ofVec3f(x, y, f2(x,y)));
-        surface2.addColor(ofColor::blue);
+        ofMesh line;
+        line.setMode(OF_PRIMITIVE_LINE_STRIP);
+        for (float y=-size; y<size; y+=step)
+        {
+            line.addVertex(ofVec3f(x, y, f2(x,y)));
+            line.addColor(ofColor(0, 255, 0));
+        }
+        surface2.push_back(line);
     }
 
     for (float y=-size; y<size; y+=step)
-    for (float x=-size; x<=size; x+=step)
     {
-        surface2.addVertex(ofVec3f(x, y, f2(x,y)));
-        surface2.addColor(ofColor::yellow);
+        ofMesh line;
+        line.setMode(OF_PRIMITIVE_LINE_STRIP);
+        for (float x=-size; x<=size; x+=step)
+        {
+            line.addVertex(ofVec3f(x, y, f2(x,y)));
+            line.addColor(ofColor(0, 255, 0));
+        }
+        surface2.push_back(line);
     }
-
-    surface2.setMode(OF_PRIMITIVE_LINE_STRIP);
 }
 
 
@@ -167,7 +168,8 @@ void ofApp::drawScene()
         line.draw();
 
     ofSetLineWidth(.5);
-    surface2.draw();
+    for (auto line : surface2)
+        line.draw();
 
     ofDisableDepthTest();
 }

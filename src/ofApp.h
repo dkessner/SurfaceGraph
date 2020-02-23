@@ -44,7 +44,7 @@ class ofApp : public ofBaseApp
         vector<ofPath> surface;
         void createSurface();
 
-        ofMesh surface2;
+        vector<ofMesh> surface2;
         void createSurface2();
 };
 
