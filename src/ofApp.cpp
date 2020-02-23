@@ -81,34 +81,21 @@ void ofApp::createSurface2()
     const float size = 5;
     const float step = .5;
 
-    // lines f(c,y)
+    for (float x=-size; x<=size; x+=step)
+    for (float y=-size; y<size; y+=step)
+    {
+        surface2.addVertex(ofVec3f(x, y, f2(x,y)));
+        surface2.addColor(ofColor::red);
+    }
 
+    for (float y=-size; y<size; y+=step)
     for (float x=-size; x<=size; x+=step)
     {
-        ofPolyline path;
-        path.clear();
-        for (float y=-size; y<size; y+=step)
-        {
-            path.lineTo(x, y, f2(x,y));
-        }
-        path.close();
-        surface2.push_back(path);
+        surface2.addVertex(ofVec3f(x, y, f2(x,y)));
+        surface2.addColor(ofColor::red);
     }
 
-    // lines f(x, c)
-
-    for (float y=-size; y<=size; y+=step)
-    {
-        ofPolyline path;
-        path.clear();
-        for (float x=-size; x<size; x+=step)
-        {
-            path.lineTo(x, y, f2(x,y));
-        }
-        surface2.push_back(path);
-    }
-
-    //return surface; // TODO: check on move semantics
+    surface2.setMode(OF_PRIMITIVE_LINE_STRIP);
 }
 
 
@@ -179,10 +166,8 @@ void ofApp::drawScene()
     for (auto line : surface)
         line.draw();
 
-    ofSetColor(0, 0, 255);
     ofSetLineWidth(.5);
-    for (auto line : surface2)
-        line.draw();
+    surface2.draw();
 
     ofDisableDepthTest();
 }
