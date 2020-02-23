@@ -85,14 +85,14 @@ void ofApp::createSurface2()
     for (float y=-size; y<size; y+=step)
     {
         surface2.addVertex(ofVec3f(x, y, f2(x,y)));
-        surface2.addColor(ofColor::red);
+        surface2.addColor(ofColor::blue);
     }
 
     for (float y=-size; y<size; y+=step)
     for (float x=-size; x<=size; x+=step)
     {
         surface2.addVertex(ofVec3f(x, y, f2(x,y)));
-        surface2.addColor(ofColor::red);
+        surface2.addColor(ofColor::yellow);
     }
 
     surface2.setMode(OF_PRIMITIVE_LINE_STRIP);
