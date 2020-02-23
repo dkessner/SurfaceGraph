@@ -20,6 +20,11 @@ float f(float x, float y)
 {
     return x*x - y*y;
 }
+
+float f2(float x, float y)
+{
+    return x*x + y*y;
+}
 }//namespace
 
 void ofApp::createSurface()
@@ -38,6 +43,9 @@ void ofApp::createSurface()
         path.setStrokeColor(ofColor(0, 255, 0));
         path.setStrokeWidth(.5);
         path.setFilled(false);
+
+        path.setMode(ofPath::POLYLINES); // TODO: testing on OSX
+
         for (float y=-size; y<size; y+=step)
         {
             path.lineTo(x, y, f(x,y));
@@ -54,11 +62,50 @@ void ofApp::createSurface()
         path.setStrokeColor(ofColor(0, 255, 0));
         path.setStrokeWidth(.5);
         path.setFilled(false);
+
+        path.setMode(ofPath::POLYLINES); // TODO: testing on OSX
+
         for (float x=-size; x<size; x+=step)
         {
             path.lineTo(x, y, f(x,y));
         }
         surface.push_back(path);
+    }
+
+    //return surface; // TODO: check on move semantics
+}
+
+
+void ofApp::createSurface2()
+{
+    const float size = 5;
+    const float step = .5;
+
+    // lines f(c,y)
+
+    for (float x=-size; x<=size; x+=step)
+    {
+        ofPolyline path;
+        path.clear();
+        for (float y=-size; y<size; y+=step)
+        {
+            path.lineTo(x, y, f2(x,y));
+        }
+        path.close();
+        surface2.push_back(path);
+    }
+
+    // lines f(x, c)
+
+    for (float y=-size; y<=size; y+=step)
+    {
+        ofPolyline path;
+        path.clear();
+        for (float x=-size; x<size; x+=step)
+        {
+            path.lineTo(x, y, f2(x,y));
+        }
+        surface2.push_back(path);
     }
 
     //return surface; // TODO: check on move semantics
@@ -73,6 +120,7 @@ void ofApp::setup()
     camera.setRelativeYAxis(true);
 
     createSurface();
+    createSurface2();
 }
 
 
@@ -90,6 +138,7 @@ void ofApp::draw()
     camera.end();
 
     if (showUsage) drawUsage();
+
 }
 
 
@@ -117,6 +166,7 @@ void ofApp::drawCoordinateSystem()
     const bool showXY = true;
 
     ofDrawGrid(stepSize, stepCount, labels, showYZ, showXZ, showXY);
+    ofSetLineWidth(5);
     ofDrawAxis(stepSize*stepCount);
 }
 
@@ -127,6 +177,11 @@ void ofApp::drawScene()
     ofEnableDepthTest();
     
     for (auto line : surface)
+        line.draw();
+
+    ofSetColor(0, 0, 255);
+    ofSetLineWidth(.5);
+    for (auto line : surface2)
         line.draw();
 
     ofDisableDepthTest();

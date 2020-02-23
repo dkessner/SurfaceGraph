@@ -106,7 +106,9 @@ PROJECT_EMSCRIPTEN_TEMPLATE = index.html
 #
 #   Note: Leave a leading space when adding list items with the += operator
 ################################################################################
-# PROJECT_CFLAGS = 
+
+# (dk) suppress warning from gstreamer-0.10/gst/video/video.h
+PROJECT_CFLAGS = -Wno-literal-suffix
 
 ################################################################################
 # PROJECT OPTIMIZATION CFLAGS

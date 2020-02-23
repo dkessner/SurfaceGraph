@@ -43,5 +43,8 @@ class ofApp : public ofBaseApp
 
         vector<ofPath> surface;
         void createSurface();
+
+        vector<ofPolyline> surface2;
+        void createSurface2();
 };
 
