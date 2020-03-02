@@ -76,7 +76,7 @@ void ofApp::createSurface2()
 
     for (float x=-size; x<=size; x+=step)
     {
-        ofMesh line;
+        ofVboMesh line;
         line.setMode(OF_PRIMITIVE_LINE_STRIP);
         for (float y=-size; y<size; y+=step)
         {
@@ -88,7 +88,7 @@ void ofApp::createSurface2()
 
     for (float y=-size; y<size; y+=step)
     {
-        ofMesh line;
+        ofVboMesh line;
         line.setMode(OF_PRIMITIVE_LINE_STRIP);
         for (float x=-size; x<=size; x+=step)
         {
